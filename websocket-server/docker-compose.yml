@@ -1,0 +1,36 @@
+services:
+
+  mongodb:
+    image: mongo
+    container_name: websocket-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: francisco
+      MONGO_INITDB_ROOT_PASSWORD: 1234567890
+    volumes:
+      - mongo:/data
+    networks:
+      - websocket-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: websocket_mongo_express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: francisco
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 1234567890
+      ME_CONFIG_MONGODB_URL: mongodb://francisco:1234567890@websocket-mongodb:27017/
+      ME_CONFIG_BASICAUTH: false
+    networks:
+      - websocket-network
+
+networks:
+  websocket-network:
+    driver: bridge
+
+volumes:
+  mongo:

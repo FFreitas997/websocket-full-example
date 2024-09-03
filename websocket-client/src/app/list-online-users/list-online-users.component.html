@@ -1,0 +1,8 @@
+<div class="h-100 p-4" style="background-color: aqua">
+  <h5 class="text-center mb-3">Online Users</h5>
+  @for (user of onlineUsers; track user.nickname) {
+    <div class="d-block text-center m-2">
+      {{ user.nickname }}
+    </div>
+  }
+</div>

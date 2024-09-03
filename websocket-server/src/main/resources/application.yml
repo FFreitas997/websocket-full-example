@@ -1,0 +1,22 @@
+spring:
+
+  application:
+    name: websocket-server
+
+  data:
+    mongodb:
+      username: francisco
+      password: 1234567890
+      host: localhost
+      port: 27017
+      database: websocketdb
+      authentication-database: admin
+      uri: mongodb://${spring.data.mongodb.username}:${spring.data.mongodb.password}@${spring.data.mongodb.host}/${spring.data.mongodb.database}?ssl=false&authSource=admin
+
+server:
+  port: 8088
+
+springdoc:
+  default-produces-media-type: application/json
+  api-docs:
+    path: /api-docs

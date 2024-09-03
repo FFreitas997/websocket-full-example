@@ -1,0 +1,36 @@
+<div class="border border-dark rounded m-3 p-2">
+
+  <h4 class="text-center mb-3 mt-2">Create Chat Room</h4>
+
+  <form class="row justify-content-center align-items-center g-5">
+
+    <div class="col-auto">
+      <label for="nick" class="col-form-label">Nickname: </label>
+    </div>
+
+    <div class="col-auto">
+      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="chatroomForm.nickName" type="text" class="form-control" id="nick">
+    </div>
+
+    <div class="col-auto">
+      <label for="real" class="col-form-label">Real Name: </label>
+    </div>
+
+    <div class="col-auto">
+      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="chatroomForm.realName" type="text" class="form-control" id="real">
+    </div>
+
+    <div class="col-auto">
+
+      <button
+        class="btn btn-primary"
+        [disabled]="!chatroomForm.nickName.length || !chatroomForm.realName.length"
+        (click)="createChatroom()">
+        Enter ChatRoom
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
