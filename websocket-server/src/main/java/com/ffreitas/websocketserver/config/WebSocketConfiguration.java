@@ -19,17 +19,17 @@ import java.util.List;
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
     @Override
-    public void configureMessageBroker(@NonNull MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/user");
-        registry.setApplicationDestinationPrefixes("/app");
-        registry.setUserDestinationPrefix("/user");
-    }
-
-    @Override
     public void registerStompEndpoints(@NonNull StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")
                 .setAllowedOriginPatterns("*")
                 .withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(@NonNull MessageBrokerRegistry registry) {
+        registry.setApplicationDestinationPrefixes("/app");
+        registry.enableSimpleBroker("/user");
+        registry.setUserDestinationPrefix("/user");
     }
 
     @Override
