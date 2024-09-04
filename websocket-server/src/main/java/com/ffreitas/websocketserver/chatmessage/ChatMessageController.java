@@ -1,7 +1,5 @@
 package com.ffreitas.websocketserver.chatmessage;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -14,14 +12,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Chat Messages", description = "APIs for managing chat messages")
 public class ChatMessageController {
 
     private final SimpMessagingTemplate messagingTemplate;
     private final ChatMessageService service;
 
     @MessageMapping("/chat")
-    @Operation(summary = "Send a message", description = "Send a message to a recipient")
     public void processMessage(@Payload ChatMessage chatMessage) {
 
         var savedChatMessage = service.save(chatMessage);
@@ -33,15 +29,10 @@ public class ChatMessageController {
                 .content(savedChatMessage.getContent())
                 .build();
 
-        messagingTemplate.convertAndSendToUser(
-                chatMessage.getRecipientId(),
-                "/queue/messages",
-                notification
-        );
+        messagingTemplate.convertAndSendToUser(chatMessage.getRecipientId(), "/queue/messages", notification);
     }
 
     @GetMapping("/messages/{senderId}/{recipientId}")
-    @Operation(summary = "Find chat messages", description = "Find all chat messages between two users")
     public List<ChatMessage> getChatMessages(@PathVariable String senderId, @PathVariable String recipientId) {
         return service.findChatMessages(senderId, recipientId);
     }
