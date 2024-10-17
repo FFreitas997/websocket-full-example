@@ -1,12 +1,50 @@
+<h1 class="text-center p-3">Message Application</h1>
+
 <div class="container-fluid">
 
-  <h1 class="text-center mb-3 mt-3"> Chat Application </h1>
+  <h5 class="text-body-secondary mt-3 mb-5">Hello User <b>{{ username }}</b>, welcome back</h5>
 
-  <app-create-chatroom></app-create-chatroom>
+  <div class="row g-3 align-items-center justify-content-center">
 
-  <app-chat-room></app-chat-room>
+    <div class="col-auto">
+      <label for="message" class="col-form-label">Message</label>
+    </div>
 
-<!--  <router-outlet></router-outlet>-->
+    <div class="col-4">
+      <input [(ngModel)]="message" id="message" type="text" class="form-control" placeholder="Message">
+    </div>
+
+    <div class="col-auto">
+      <label for="receiver" class="col-form-label">Receiver</label>
+    </div>
+
+    <div class="col-auto">
+      <input [(ngModel)]="receiver" id="receiver" type="text" class="form-control" placeholder="Receiver">
+    </div>
+
+    <div class="col-auto">
+      <button class="btn btn-primary" (click)="sendMessage()">Send Message</button>
+    </div>
+
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-12">
+      <h5 class="text-body-secondary">Messages</h5>
+    </div>
+  </div>
+
+  <ol class="list-group">
+    @for (message of listOfMessages; track message.createdAt){
+      <li class="list-group-item">
+        <div class="w-100 d-flex justify-content-between align-items-start">
+          <span class="mb-1"><b>Sender</b>: {{ message.sender === username ? 'You' : message.sender }}</span>
+          <small>{{ message.createdAt | date: 'dd/MM/yyyy hh:mm:ss' }}</small>
+        </div>
+        <p class="mb-1"><b>Message</b>: {{ message.message }}</p>
+      </li>
+    }
+  </ol>
 
 </div>
 
